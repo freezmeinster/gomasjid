@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <record model="ir.ui.view" id="notulensi.notes_list">
+      <field name="name">Notes</field>
+      <field name="model">notulensi.notes</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="description" widget="html"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="notulensi.notes_form">
+      <field name="name">Notes</field>
+      <field name="model">notulensi.notes</field>
+      <field name="arch" type="xml">
+          <form >
+              <header>
+                  <button type="object" name="action_accept" string="Accept" attrs="{'invisible': [('state', '=', 'accept')]}" class="oe_highlight"/>
+                 <field name="state" widget="statusbar"/>
+              </header>
+              <sheet>
+                  <group>
+                      <field attrs="{'readonly': [('state', '=', 'accept')]}" name="name"/>
+                      <field attrs="{'readonly': [('state', '=', 'accept')]}" name="description"/>
+                  </group>
+                  <notebook>
+                     <page string="Assignment">
+                        <field attrs="{'readonly': [('state', '=', 'accept')]}" name="task_ids" context="{'default_notes_id':id}" >
+                           <tree>
+                              <field name="user"/>
+                              <field name="task_id"/>
+                           </tree>
+                       </field>
+                    </page>
+                  </notebook>
+              </sheet>
+        </form>
+      </field>
+  </record>
+
+    <!-- actions opening views on models -->
+    <record model="ir.actions.act_window" id="notulensi.action_window_notes">
+      <field name="name">Notes</field>
+      <field name="res_model">notulensi.notes</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="notulensi.action_window_task">
+      <field name="name">Task</field>
+      <field name="res_model">notulensi.task</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="notulensi.action_server">
+      <field name="name">notulensi server</field>
+      <field name="model_id" ref="model_notulensi_notulensi"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <menuitem name="Notulensi" id="notulensi.menu_root"/>
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="notulensi.menu_1" parent="notulensi.menu_root"/>
+    <menuitem name="Menu 2" id="notulensi.menu_2" parent="notulensi.menu_root"/>
+    -->
+    <!-- actions -->
+    <menuitem name="Notes" id="notulensi.menu_notes" parent="notulensi.menu_root"
+              action="notulensi.action_window_notes"/>
+    <menuitem name="Task" id="notulensi.menu_task" parent="notulensi.menu_root"
+              action="notulensi.action_window_task"/>
+          <!--
+    <menuitem name="Server to list" id="notulensi" parent="notulensi.menu_2"
+              action="notulensi.action_server"/>
+    -->
+  </data>
+</odoo>

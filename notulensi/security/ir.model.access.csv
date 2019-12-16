@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_notulensi_notes,notulensi.notes,model_notulensi_notes,base.group_user,1,1,1,1
+access_notulensi_task,notulensi.task,model_notulensi_task,base.group_user,1,1,1,1
+access_notulensi_assignment,notulensi.assignment,model_notulensi_assignment,base.group_user,1,1,1,1
